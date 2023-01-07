@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>1A2B猜數字</h1>
+        <button class="start-btn">開始遊戲</button>
+        <br>
+        <input type="text" value = "3456">
+        <br>
+        <button class="guess-btn">猜猜看</button>
+      
+    </div>
+    <script>
+        //宣告
+        let 
+
+        //DOM
+        const startBtn = document.querySelector('.start-btn')
+        const guessBtn = document.querySelector('.guess-btn')
+        const guessInput = document.querySelector('input')
+
+        //function
+        function getFourNum(){
+            return[...Array(10)].map((x,index)=> index.toString())
+            .sort(()=>Math.random() - Math.random())
+            .splice(6)
+        }
+
+        function check(){
+            guess = guessInput.value.split('')
+            let intersectArr = answer.filter(x=>guess.includes(x))
+            console.log(intersectArr)
+            let a = intersectArr.filter(x=>answer.indexOf(x) == guess.indexOf(x)).length
+            console.log(a)
+            let b = intersectArr.length - a
+        }
+
+        //window onload
+        window.onload = function(){
+            startBtn.onclick = function(){
+                //
+                answer
+            }
+        }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+   
+
+    
+</body>
+</html>
