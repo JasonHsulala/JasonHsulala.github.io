@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>終極密碼</title>
+  <!-- icon -->
+  <link rel="icon" type="image/png" href="./icon.png">
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <h1>挑戰:終極密碼!</h1>
+      <div class="content">
+        <p class="infor">提示:從1~100中挑一個數字</p>
+        <div class="input-gp">
+          <button id="minus" class="edit">-</button>
+          <input type="number" id="guess" placeholder="55" autofocus>
+          <button id="add" class="edit">+</button>
+        </div>
+        <button id="submit" class="submit">Guess!!</button>
+        <p class="feedback">Hey guys, take a guess!</p>
+        <div class="counter">Guessing times: <span>0</span></div>
+      </div>
+    </div>
+    <p class="desc">
+      <span class="code">Guess!!</span>: submit your number <br>
+      <span class="code">↑</span>: add 1 on your number <br>
+      <span class="code">↓</span>: subtract 1 from your number <br>
+    </p>
+  </div>
+  <!-- javascript -->
+  <script>
+var guessNum = document.getElementById('guess');
+var submitNum = document.getElementById('submit');
+var feedback = document.querySelector('.feedback');
+var originText = feedback.innerHTML;
+var random = Number(parseInt(Math.random()*100) + 1);
+
+var addNum = document.getElementById('add');
+var subtractNum = document.getElementById('minus');
+
+guessNum.onkeydown = function(event) {
+  let code = event.keyCode;
+  if (code === 13) {
+    submitNum.click()
+  }
+}
+
+// add and subtract button
+addNum.addEventListener('click',function(){editNum('add')})
+subtractNum.addEventListener('click',function(){editNum('minus')})
+
+function editNum(action){
+  let num = Number(guessNum.value);
+  if (action=='add'){
+    guessNum.value = num + 1;
+  } else if (action=='minus'){
+    guessNum.value = num - 1;
+  }
+  guessNum.focus();
+}
+
+//submit guessing number
+submitNum.onclick = function(){
+  let num = Number(guessNum.value);
+  feedback.classList.add('warning');
+  if ( num == '' ){
+    feedback.innerHTML = "行行好，給個數字吧!";
+  } else if ( isNaN(num) ){
+    feedback.innerHTML = "我要數字辣，你給我輸入什麼東東~~"
+  } else if ( num > 100 || num < 1 ){
+    feedback.innerHTML = "你該看眼科囉，我要的範圍是1~100餒，看清楚一點好嗎!!"
+  } else if(!Number.isInteger(num)){
+    feedback.innerHTML = "輸入整數啦~孩子!"
+  } else {
+    compare();
+    countTimes();
+  }
+  guessNum.focus();
+};
+
+//compare with random number
+function compare(){
+  feedback.classList.remove('warning');
+  let num = Number(guessNum.value);
+  let sd = 10;
+  if ( num > random ) {
+    if( Math.abs(num-random) <= sd ){
+      feedback.innerHTML = "比答案高，但很接近了!"
+    } else {
+      feedback.innerHTML = "太高了，再低一點"
+    }
+  } else if ( num < random ) {
+    if( Math.abs(num-random) <= sd ){
+      feedback.innerHTML = "比答案低，但很接近了!"
+    } else {
+      feedback.innerHTML = "太低了，再高一點"
+    }
+  } else if ( num === random ) {
+    feedback.innerHTML = "Bingo!!!";
+    feedback.classList.add('bingo');
+    again();
+  };
+}
+
+//times counter
+function countTimes(suatus){
+  let counter = document.querySelector('.counter');
+  let span = counter.getElementsByTagName('span')[0];
+  let times = Number(span.innerHTML);
+  times += 1;
+  span.innerHTML = times;
+  if (suatus=='toZero'){
+    span.innerHTML = 0
+  }
+}
+
+//guess again: after "bingo"
+function again(){
+  submitNum.style.display = 'none';
+  let btn = document.createElement('button');
+  btn.setAttribute('class', 'submit');
+  btn.innerHTML = 'guess again';
+  submitNum.insertAdjacentElement('afterend',btn);
+  btn.onclick = function(){
+    random = Number(parseInt(Math.random()*100) + 1);
+    btn.remove();
+    guessNum.value = '';
+    countTimes('toZero');
+    submitNum.style.display = 'inline-block';
+    feedback.innerHTML = originText;
+    feedback.classList.remove('bingo');
+    guessNum.focus();
+  }
+}
+  </script>
+</body>
+
+</html>
