@@ -8,60 +8,30 @@
 </head>
 <body>
     <div class="container">
-        <h1>1A2B猜數字</h1>
+        <h1>猜數字</h1>
         <button class="start-btn">開始遊戲</button>
         <br>
-        <input type="text" value = "3456">
-        <br>
-        <button class="guess-btn">猜猜看</button>
-      
+        <input type="text" value="1234">
+        <button class="guess-btn">猜看看</button>
+                                
     </div>
     <script>
-        //宣告
-        let 
+        //Todo list
+        //1.HTML
+        //2.定義變數
+        //3.DOM
+        //4.function
+        //5.window.onload
 
+        //定義變數
+        let number = [];
+        let guess = [];
+        
         //DOM
-        const startBtn = document.querySelector('.start-btn')
-        const guessBtn = document.querySelector('.guess-btn')
-        const guessInput = document.querySelector('input')
 
-        //function
-        function getFourNum(){
-            return[...Array(10)].map((x,index)=> index.toString())
-            .sort(()=>Math.random() - Math.random())
-            .splice(6)
-        }
 
-        function check(){
-            guess = guessInput.value.split('')
-            let intersectArr = answer.filter(x=>guess.includes(x))
-            console.log(intersectArr)
-            let a = intersectArr.filter(x=>answer.indexOf(x) == guess.indexOf(x)).length
-            console.log(a)
-            let b = intersectArr.length - a
-        }
-
-        //window onload
-        window.onload = function(){
-            startBtn.onclick = function(){
-                //
-                answer
-            }
-        }
 
         
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
    
 
